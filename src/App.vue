@@ -51,7 +51,7 @@ export default {
 				this.uploadStatus = 'There is no file to copy';
 				return;
 			}
-			navigator.clipboard.writeText(`${window.location.protocol}://${window.location.host}/${this.key}`)
+			navigator.clipboard.writeText(`${window.location.protocol}//${window.location.host}/${this.key}`)
 				.catch(err => {
 					console.error('Error copying to clipboard:', err);
 					this.uploadStatus = 'Error while copying';
