@@ -51,10 +51,8 @@ export default {
 				this.uploadStatus = 'There is no file to copy';
 				return;
 			}
-
-			navigator.clipboard.writeText(this.selectedFile.name)
+			navigator.clipboard.writeText(this.getUrl)
 				.then(() => {
-					this.uploadStatus = 'The file name has been copied to the clipboard.';
 				})
 				.catch(err => {
 					console.error('Error copying to clipboard:', err);
