@@ -48,7 +48,7 @@ export default {
 
 	computed: {
 		getUrl() {
-			return `${window.location.protocol}://${window.location.host}/${this.key}`
+			return `${window.location.protocol}${this.key}`
 		}
 	}
 }
