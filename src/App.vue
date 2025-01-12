@@ -2,6 +2,7 @@
 	<input type="file" @change="onFileChange" />
 	<button @click="uploadFile">upload</button>
 	<p v-if="uploadStatus">{{ uploadStatus }}</p>
+	<a :href="getUrl" v-if="key.length > 0">Download</a>
 </template>
 
 <script>
@@ -13,6 +14,7 @@ export default {
 	data: () => ({
 		selectedFile: null,
 		uploadStatus: '',
+		key: '',
 	}),
 
 	methods: {
@@ -30,16 +32,23 @@ export default {
 			formData.append('file', this.selectedFile);
 
 			try {
-				const response = axios.post('/upload', formData, {
+				await axios.post('/upload', formData, {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
+				}).then((response) => {
+					this.key =  response.data.key;
 				});
-				this.uploadStatus = 'File uploaded successfully';
 			} catch (error) {
 				console.error('File upload error:', error);
 				this.uploadStatus = 'File uploading error';
 			}
+		}
+	},
+
+	computed: {
+		getUrl() {
+			return `${window.location.protocol}://${window.location.host}/${this.key}`
 		}
 	}
 }
