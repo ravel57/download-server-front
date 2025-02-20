@@ -3,7 +3,7 @@
 	<p v-if="uploadStatus">{{ uploadStatus }}</p>
 	<progress v-if="uploadProgress > 0" :value="uploadProgress" max="100"/>
 	<p v-if="errorMessage" style="color: red">{{ errorMessage }}</p>
-	<button v-if="key.length > 0" @click="copyToClipboard">Copy to clipboard</button>
+	<button v-if="key.length > 0" @click="copyToClipboard">Copy link to clipboard</button>
 </template>
 
 <script>
@@ -55,7 +55,9 @@ export default {
 		},
 
 		copyToClipboard() {
-			navigator.clipboard.writeText(`${window.location.protocol}//${window.location.host}/${this.key}`)
+			const text = `${window.location.protocol}//${window.location.host}/${this.key}`
+			console.log(text)
+			navigator.clipboard.writeText(text)
 					.catch(err => {
 						console.error('Error copying to clipboard:', err)
 						this.uploadStatus = 'Error while copying'
