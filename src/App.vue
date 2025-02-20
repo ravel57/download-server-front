@@ -55,10 +55,6 @@ export default {
 		},
 
 		copyToClipboard() {
-			if (!this.selectedFile) {
-				this.uploadStatus = 'There is no file to copy'
-				return
-			}
 			navigator.clipboard.writeText(`${window.location.protocol}//${window.location.host}/${this.key}`)
 					.catch(err => {
 						console.error('Error copying to clipboard:', err)
